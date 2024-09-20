@@ -1,9 +1,9 @@
 [submodule "lib/FreeRTOS-Kernel"]
 	path = lib/FreeRTOS-Kernel
 	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
-[submodule "lib/Curiosity-protocol"]
-	path = lib/Curiosity-protocol
-	url = https://github.com/IvayloKraev/Curiosity-protocol.git
 [submodule "lib/pico-sdk"]
 	path = lib/pico-sdk
 	url = https://github.com/raspberrypi/pico-sdk.git
+[submodule "lib/hctp"]
+	path = lib/hctp
+	url = https://github.com/IvayloKraev/hctp.git
