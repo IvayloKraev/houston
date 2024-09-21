@@ -13,6 +13,7 @@ set(CMAKE_C_STANDARD 11)
 
 set(SOURCES
         src/wifiCtrl.c
+        src/userInput.c
 )
 
 add_executable(Houston main.c
@@ -23,8 +24,9 @@ include_directories(inc)
 target_link_libraries(
         Houston
         pico_stdlib
-        pico_cyw43_arch_lwip_sys_freertos
+        FreeRTOS-Kernel
         FreeRTOS-Kernel-Heap4
+        pico_cyw43_arch_lwip_sys_freertos
 )
 
 pico_enable_stdio_usb(Houston 1)
