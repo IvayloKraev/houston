@@ -15,6 +15,7 @@ set(CMAKE_C_STANDARD 11)
 set(SOURCES
         src/wifiCtrl.c
         src/userInput.c
+        src/encodeCommands.c
 )
 
 add_executable(Houston main.c
@@ -28,6 +29,8 @@ target_link_libraries(
         FreeRTOS-Kernel
         FreeRTOS-Kernel-Heap4
         pico_cyw43_arch_lwip_sys_freertos
+        hardware_adc
+        hardware_gpio
         hctp
 )
 
