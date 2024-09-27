@@ -1,16 +1,15 @@
 #include "userInput.h"
 
-rawUserInput_t userInput_raw = {};
-QueueHandle_t userInput_rawCommandQueue = NULL;
+rawUserInput_handler_t userInput_raw;
 
-void houston_userInput_init(QueueHandle_t newRawCommandQueue) {
+void houston_userInput_init(rawUserInput_handler_t rawUserInputHandler) {
 
-    if(newRawCommandQueue == NULL) {
+    if(rawUserInputHandler == NULL) {
         stdio_printf("Raw Command Queue is NULL\n");
         return;
     }
 
-    userInput_rawCommandQueue = newRawCommandQueue;
+    userInput_raw = rawUserInputHandler;
 
     gpio_init(START_MOTORS_PIN);
     gpio_set_dir(START_MOTORS_PIN, GPIO_IN);
@@ -28,17 +27,15 @@ void houston_userInput_init(QueueHandle_t newRawCommandQueue) {
     adc_gpio_init(SPEED_CTRL_PIN);
 }
 
-void houston_userInput_getState() {
+_Noreturn void houston_userInput_getState() {
     while (1) {
-        userInput_raw.startMotors = gpio_get(START_MOTORS_PIN);
-        userInput_raw.stopMotors = gpio_get(STOP_MOTORS_PIN);
-        userInput_raw.leftTurn = gpio_get(LEFT_TURN_PIN);
-        userInput_raw.rightTurn = gpio_get(RIGHT_TURN_PIN);
+        userInput_raw->startMotors = gpio_get(START_MOTORS_PIN);
+        userInput_raw->stopMotors = gpio_get(STOP_MOTORS_PIN);
+        userInput_raw->leftTurn = gpio_get(LEFT_TURN_PIN);
+        userInput_raw->rightTurn = gpio_get(RIGHT_TURN_PIN);
 
         adc_select_input(SPEED_CTRL_ADC);
-        userInput_raw.speed = adc_read();
-
-        xQueueSendToBack(userInput_rawCommandQueue, &userInput_raw, (TickType_t) 10);
+        userInput_raw->speed = adc_read();
 
         stdio_printf(
             "startMotors: %d\n"
@@ -46,12 +43,12 @@ void houston_userInput_getState() {
             "leftTurn: %d\n"
             "rightTun: %d\n"
             "speed: %d\n",
-            userInput_raw.startMotors,
-            userInput_raw.stopMotors,
-            userInput_raw.leftTurn,
-            userInput_raw.rightTurn,
-            userInput_raw.speed);
+            userInput_raw->startMotors,
+            userInput_raw->stopMotors,
+            userInput_raw->leftTurn,
+            userInput_raw->rightTurn,
+            userInput_raw->speed);
 
-        vTaskDelay(100);
+        vTaskDelay(10);
     }
 };

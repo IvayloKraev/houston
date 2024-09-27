@@ -14,20 +14,20 @@ wifiConfig_t wifiConfig = {
     .password = "123456789"
 };
 
-QueueHandle_t rawCommandQueue;
+rawUserInput_t rawUserInput = {};
 
+TaskHandle_t houston_userInput_getState_handle;
+UBaseType_t houston_userInput_getState_CoreAffinityMask = (1 << 1);
 
 int main(void)
 {
     stdio_usb_init();
 
-    rawCommandQueue = xQueueCreate(1, sizeof(struct rawUserInput_t*));
-
     sleep_ms(5000);
 
     stdio_printf("Start program\n");
 
-    houston_userInput_init(rawCommandQueue);
+    houston_userInput_init(&rawUserInput);
 
     stdio_printf("userInput init\n");
 
@@ -46,7 +46,12 @@ int main(void)
             configMINIMAL_STACK_SIZE,
             NULL,
             tskCRITICAL_PRORITY,
-            NULL
+            &houston_userInput_getState_handle
+            );
+
+    vTaskCoreAffinitySet(
+            houston_userInput_getState_handle,
+            houston_userInput_getState_CoreAffinityMask
             );
 
     vTaskStartScheduler();

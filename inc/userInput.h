@@ -11,7 +11,6 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
-#include "queue.h"
 
 #define START_MOTORS_PIN    2
 #define STOP_MOTORS_PIN     3
@@ -30,8 +29,10 @@ typedef struct {
     uint16_t speed;
 } rawUserInput_t;
 
-void houston_userInput_init(QueueHandle_t);
+typedef rawUserInput_t* rawUserInput_handler_t;
 
-void houston_userInput_getState();
+void houston_userInput_init(rawUserInput_handler_t);
+
+_Noreturn void houston_userInput_getState();
 
 #endif
