@@ -37,17 +37,17 @@ _Noreturn void houston_userInput_getState() {
         adc_select_input(SPEED_CTRL_ADC);
         userInput_raw->speed = adc_read();
 
-        stdio_printf(
-            "startMotors: %d\n"
-            "stopMotors: %d\n"
-            "leftTurn: %d\n"
-            "rightTun: %d\n"
-            "speed: %d\n",
-            userInput_raw->startMotors,
-            userInput_raw->stopMotors,
-            userInput_raw->leftTurn,
-            userInput_raw->rightTurn,
-            userInput_raw->speed);
+//        stdio_printf(
+//            "startMotors: %d\n"
+//            "stopMotors: %d\n"
+//            "leftTurn: %d\n"
+//            "rightTun: %d\n"
+//            "speed: %d\n",
+//            userInput_raw->startMotors,
+//            userInput_raw->stopMotors,
+//            userInput_raw->leftTurn,
+//            userInput_raw->rightTurn,
+//            userInput_raw->speed);
 
         vTaskDelay(10);
     }

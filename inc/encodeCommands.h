@@ -6,20 +6,21 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
-#include "queue.h"
 
 #include "hctp/messageModel.h"
 #include "hctp/control.h"
 #include "hctp/speed.h"
+#include "hctp/encodeMessage.h"
 
 #include "userInput.h"
+#include "common.h"
 
 typedef struct {
 
 } handledCommand_t;
 
-void houston_encodeCommands_init(QueueHandle_t);
+void houston_encodeCommands_init(rawUserInput_handler_t, hctp_message_t);
 
-_Noreturn void houston_encodeCommands_recieve();
+_Noreturn void houston_encodeCommands_receive();
 
 #endif
