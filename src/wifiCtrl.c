@@ -1,8 +1,8 @@
 #include "wifiCtrl.h"
 
-void huston_wifiCtrl_init(void* wifiConfigPtr) {
+void huston_wifiCtrl_init(void* paramsPtr) {
 
-    wifiConfigHandler_t wifiConfig = (wifiConfigHandler_t) wifiConfigPtr;
+    wifiConfigHandler_t wifiConfig = (wifiConfigHandler_t) paramsPtr;
 
     if (cyw43_arch_init_with_country(CYW43_COUNTRY_BULGARIA)) {
         stdio_printf("failed to initialise wifi\n");

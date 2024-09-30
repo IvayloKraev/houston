@@ -31,8 +31,6 @@ typedef struct {
 
 typedef rawUserInput_t* rawUserInput_handler_t;
 
-void houston_userInput_init(rawUserInput_handler_t);
-
-_Noreturn void houston_userInput_getState();
+_Noreturn void houston_userInput_getState(void*);
 
 #endif

@@ -16,11 +16,10 @@
 #include "common.h"
 
 typedef struct {
+    rawUserInput_handler_t newRawCommand;
+    hctp_message_t message;
+} houston_encodeCommands_params_t;
 
-} handledCommand_t;
-
-void houston_encodeCommands_init(rawUserInput_handler_t, hctp_message_t);
-
-_Noreturn void houston_encodeCommands_receive();
+_Noreturn void houston_encodeCommands_receive(void*);
 
 #endif
