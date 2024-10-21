@@ -26,6 +26,7 @@ void huston_wifiCtrl_init(void* paramsPtr) {
         printf("Failed to get IP address\n");
     }
 
+    HOUSTON_STATUS_SET_WIFI_DONE();
 
     while (true) {
         cyw43_arch_poll();

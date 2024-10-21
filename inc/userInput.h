@@ -12,6 +12,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "status.h"
+
 #define START_MOTORS_PIN    2
 #define STOP_MOTORS_PIN     3
 #define LEFT_TURN_PIN       4

@@ -14,6 +14,7 @@
 
 #include "userInput.h"
 #include "common.h"
+#include "status.h"
 
 typedef struct {
     rawUserInput_handler_t newRawCommand;

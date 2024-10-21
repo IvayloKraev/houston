@@ -10,6 +10,8 @@ _Noreturn void houston_encodeCommands_receive(void* paramsPtr) {
             .speed = 0
     };
 
+    HOUSTON_STATUS_WAIT_WIFI_DONE();
+
     while (1) {
         encodeCommands_base = (hctp_message_readyToEncode_t){
                 .motorState = (params->newRawCommand->stopMotors == 1) ? 0 :

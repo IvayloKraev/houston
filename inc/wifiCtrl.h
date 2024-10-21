@@ -8,6 +8,7 @@
 #include "task.h"
 
 #include "common.h"
+#include "status.h"
 
 #define CYW43_COUNTRY_BULGARIA CYW43_COUNTRY('B', 'G', 0)
 

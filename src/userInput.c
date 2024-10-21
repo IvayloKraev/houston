@@ -18,6 +18,7 @@ _Noreturn void houston_userInput_getState(void* paramsPtr) {
     adc_init();
     adc_gpio_init(SPEED_CTRL_PIN);
 
+    HOUSTON_STATUS_WAIT_WIFI_DONE();
 
     while (1) {
         rawUserInput->startMotors = gpio_get(START_MOTORS_PIN);

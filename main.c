@@ -9,6 +9,7 @@
 #include "wifiCtrl.h"
 #include "userInput.h"
 #include "encodeCommands.h"
+#include "socket.h"
 
 static wifiConfig_t wifiConfig = {
     .ssid = "Houston",
@@ -38,6 +39,8 @@ int main(void)
             .message = houston_message
     };
 
+    houston_status_init();
+
     stdio_printf("Start loop logic\n");
 
     xTaskCreate(
@@ -54,7 +57,7 @@ int main(void)
             "houston_userInput_getState",
             configMINIMAL_STACK_SIZE,
             &rawUserInput,
-            tskCRITICAL_PRORITY,
+            0,
             &houston_userInput_getState_handle
             );
 
@@ -63,7 +66,7 @@ int main(void)
             "houston_encodeCommands_receive",
             configMINIMAL_STACK_SIZE,
             &houston_encodeCommands_params,
-            tskCRITICAL_PRORITY,
+            0,
             NULL
     );
 
