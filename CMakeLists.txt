@@ -16,6 +16,7 @@ set(SOURCES
         src/wifiCtrl.c
         src/userInput.c
         src/encodeCommands.c
+        src/socket.c
         src/status.c
 )
 

@@ -9,6 +9,7 @@
 #include "wifiCtrl.h"
 #include "userInput.h"
 #include "encodeCommands.h"
+#include "status.h"
 #include "socket.h"
 
 static wifiConfig_t wifiConfig = {
@@ -66,6 +67,15 @@ int main(void)
             "houston_encodeCommands_receive",
             configMINIMAL_STACK_SIZE,
             &houston_encodeCommands_params,
+            0,
+            NULL
+    );
+
+    xTaskCreate(
+            houston_socket_pipeData,
+            "houston_socket_pipeData",
+            configMINIMAL_STACK_SIZE,
+            houston_message,
             0,
             NULL
     );
