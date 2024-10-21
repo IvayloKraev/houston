@@ -16,6 +16,7 @@ set(SOURCES
         src/wifiCtrl.c
         src/userInput.c
         src/encodeCommands.c
+        src/status.c
 )
 
 add_executable(Houston main.c
