@@ -12,39 +12,43 @@ stdio_printf("\n"); \
 
 _Noreturn void houston_socket_pipeData(void *param) {
 
-    stdio_printf("Houston socket pipe data\n");
     HOUSTON_STATUS_WAIT_WIFI_DONE();
-    stdio_printf("Houston_socket_pipeData()\n");
 
-    uint32_t hoston_socket = lwip_socket(AF_INET, SOCK_DGRAM, 0);
+    const ip_addr_t *houstonIpAddr = netif_ip4_addr(netif_default);
 
-    stdio_printf("socket %d\n", hoston_socket);
+    ip_addr_t *curiosityIpAddr = (ip_addr_t *)malloc(sizeof(ip_addr_t));
+    IP4_ADDR(curiosityIpAddr, 192, 168, 0, 1);
 
-    struct netconn * xUdpConn = netconn_new ( NETCONN_UDP );
 
-    stdio_printf("netconn %d\n", xUdpConn);
+    // Creating connection
+    struct netconn * houstonUdpConnection = netconn_new ( NETCONN_UDP );
 
-    struct netbuf  * xNetBuf = netbuf_new();
+    err_t netconnStatus = netconn_bind(houstonUdpConnection, houstonIpAddr, 784) +
+                          netconn_connect(houstonUdpConnection, IP_ADDR_BROADCAST, 784);
 
-    stdio_printf("xNetBuf %d\n", xNetBuf);
+    if(netconnStatus != ERR_OK) {
+        stdio_printf("netconn_bind/netconn_connect failed\n");
+        vTaskDelete(NULL);
+    }
 
-    ip_addr_t ipAddr;
-    IP4_ADDR(&ipAddr, 192, 168, 0, 114);
 
-    uint8_t t = netconn_bind(xUdpConn, &ipAddr,784);
+    // Assigning value
+    struct netbuf  * houstonNetBuffer = netbuf_new();
 
-    stdio_printf("netconn bind %d\n", t);
+    err_t netBufStatus = netbuf_ref(houstonNetBuffer, param, HCTP_MESSAGE_SIZE_BYTES);
 
-    uint8_t u = netconn_connect(xUdpConn, IP_ADDR_BROADCAST, 784);
-
-    stdio_printf("netconn connect %d\n", u);
-
-    uint8_t m = netbuf_ref(xNetBuf, param, HCTP_MESSAGE_SIZE_BYTES);
-
-    stdio_printf("m %d\n", m);
+    if(netBufStatus != ERR_OK) {
+        stdio_printf("netbuf_ref failed\n");
+        vTaskDelete(NULL);
+    }
 
     while (1) {
-        netconn_send(xUdpConn, xNetBuf);
+        err_t netconnSendStatus = netconn_send(houstonUdpConnection, houstonNetBuffer);
+
+        if(netconnSendStatus != ERR_OK) {
+            stdio_printf("netconn_send failed\n");
+            vTaskDelete(NULL);
+        }
 
         vTaskDelay(1000);
     }
