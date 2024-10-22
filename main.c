@@ -13,8 +13,8 @@
 #include "socket.h"
 
 static wifiConfig_t wifiConfig = {
-    .ssid = "Houston",
-    .password = "123456789"
+    .ssid = "Kraevs",
+    .password = "9d>R8upfH:i'~wgN\\^YX"
 };
 
 static rawUserInput_t rawUserInput = {};
@@ -49,7 +49,7 @@ int main(void)
             "huston_wifiCtrl_init",
             configMINIMAL_STACK_SIZE,
             &wifiConfig,
-            tskCRITICAL_PRORITY,
+            tskCRUCIAL_PRIORITY,
             NULL
             );
 
@@ -58,7 +58,7 @@ int main(void)
             "houston_userInput_getState",
             configMINIMAL_STACK_SIZE,
             &rawUserInput,
-            0,
+            tskNORMAL_PRIORITY,
             &houston_userInput_getState_handle
             );
 
@@ -67,7 +67,7 @@ int main(void)
             "houston_encodeCommands_receive",
             configMINIMAL_STACK_SIZE,
             &houston_encodeCommands_params,
-            0,
+            tskNORMAL_PRIORITY,
             NULL
     );
 
@@ -76,14 +76,9 @@ int main(void)
             "houston_socket_pipeData",
             configMINIMAL_STACK_SIZE,
             houston_message,
-            0,
+            tskNORMAL_PRIORITY,
             NULL
     );
-
-//    vTaskCoreAffinitySet(
-//            houston_userInput_getState_handle,
-//            houston_userInput_getState_CoreAffinityMask
-//            );
 
     vTaskStartScheduler();
     return 0;

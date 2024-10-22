@@ -1,7 +1,7 @@
 #include "userInput.h"
 
-_Noreturn void houston_userInput_getState(void* paramsPtr) {
-    rawUserInput_handler_t rawUserInput = (rawUserInput_handler_t)paramsPtr;
+_Noreturn void houston_userInput_getState(void *paramsPtr) {
+    rawUserInput_handler_t rawUserInput = (rawUserInput_handler_t) paramsPtr;
 
     gpio_init(START_MOTORS_PIN);
     gpio_set_dir(START_MOTORS_PIN, GPIO_IN);

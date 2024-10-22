@@ -1,8 +1,6 @@
 #ifndef HOUSTON_STATUS_H
 #define HOUSTON_STATUS_H
 
-#include "stdint.h"
-
 #include "FreeRTOS.h"
 #include "event_groups.h"
 
@@ -10,7 +8,6 @@
 
 #define HOUSTON_STATUS_WAIT_WIFI_DONE() houston_status_waitStatus(HOUSTON_STATUS_WIFI_DONE)
 #define HOUSTON_STATUS_SET_WIFI_DONE() houston_status_setStatus(HOUSTON_STATUS_WIFI_DONE)
-
 
 void houston_status_init();
 

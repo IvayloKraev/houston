@@ -3,7 +3,8 @@
 
 
 #include <pico/stdio.h>
-#include <lwip/sockets.h>
+#include <lwip/api.h>
+#include <lwip/netif.h>
 
 #include "FreeRTOS.h"
 #include "task.h"

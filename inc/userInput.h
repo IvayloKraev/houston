@@ -4,8 +4,6 @@
 #include <stdint.h>
 #include "stdbool.h"
 
-#include <pico/stdio.h>
-
 #include "hardware/gpio.h"
 #include "hardware/adc.h"
 
@@ -22,7 +20,6 @@
 #define SPEED_CTRL_ADC      2
 #define SPEED_CTRL_PIN      (SPEED_CTRL_ADC + 26)
 
-
 typedef struct {
     bool startMotors;
     bool stopMotors;
@@ -31,8 +28,8 @@ typedef struct {
     uint16_t speed;
 } rawUserInput_t;
 
-typedef rawUserInput_t* rawUserInput_handler_t;
+typedef rawUserInput_t *rawUserInput_handler_t;
 
-_Noreturn void houston_userInput_getState(void*);
+_Noreturn void houston_userInput_getState(void *);
 
 #endif
