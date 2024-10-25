@@ -6,14 +6,14 @@ _Noreturn void houston_socket_pipeData(void *param) {
     const ip_addr_t *houstonIpAddr = netif_ip4_addr(netif_default);
 
     ip_addr_t *curiosityIpAddr = (ip_addr_t *) malloc(sizeof(ip_addr_t));
-    IP4_ADDR(curiosityIpAddr, 192, 168, 0, 1);
+    IP4_ADDR(curiosityIpAddr, 192, 168, 1, 16);
 
 
     // Creating connection
     struct netconn *houstonUdpConnection = netconn_new(NETCONN_UDP);
 
     err_t netconnStatus = netconn_bind(houstonUdpConnection, houstonIpAddr, 784) +
-                          netconn_connect(houstonUdpConnection, IP_ADDR_BROADCAST, 784);
+                          netconn_connect(houstonUdpConnection, curiosityIpAddr, 784);
 
     if (netconnStatus != ERR_OK) {
         stdio_printf("netconn_bind/netconn_connect failed\n");

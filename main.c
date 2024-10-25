@@ -13,8 +13,8 @@
 #include "socket.h"
 
 static wifiConfig_t wifiConfig = {
-    .ssid = "Kraevs",
-    .password = "9d>R8upfH:i'~wgN\\^YX"
+    .ssid = "Houston",
+    .password = "12345678"
 };
 
 static rawUserInput_t rawUserInput = {};
