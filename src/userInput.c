@@ -29,6 +29,8 @@ _Noreturn void houston_userInput_getState(void *paramsPtr) {
         adc_select_input(SPEED_CTRL_ADC);
         rawUserInput->speed = adc_read();
 
+        HOUSTON_STATUS_SET_RAW_USER_INPUT();
+
         vTaskDelay(10);
     }
 };

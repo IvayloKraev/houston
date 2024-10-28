@@ -6,13 +6,13 @@ void houston_status_init() {
     houston_status_eventGroup = xEventGroupCreate();
 }
 
-void houston_status_waitStatus(EventBits_t bitsToWait) {
+void houston_status_waitStatus(EventBits_t bitsToWait, BaseType_t clearOnExit) {
     do {
         EventBits_t wifiBit =
                 xEventGroupWaitBits(
                     houston_status_eventGroup,
                     bitsToWait,
-                    pdFALSE,
+                    clearOnExit,
                     pdTRUE,
                     portMAX_DELAY
                 );
