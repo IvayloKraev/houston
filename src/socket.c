@@ -32,13 +32,13 @@ _Noreturn void houston_socket_pipeData(void *param) {
     }
 
     while (1) {
+        HOUSTON_STATUS_WAIT_ENCODED_COMMAND();
+
         err_t netconnSendStatus = netconn_send(houstonUdpConnection, houstonNetBuffer);
 
         if (netconnSendStatus != ERR_OK) {
             stdio_printf("netconn_send failed\n");
             vTaskDelete(NULL);
         }
-
-        vTaskDelay(10);
     }
 }
