@@ -46,6 +46,7 @@ _Noreturn void houston_encodeCommands_receive(void *paramsPtr) {
             encodeCommands_current.leftTurn != encodeCommands_base.leftTurn ||
             encodeCommands_current.rightTurn != encodeCommands_base.rightTurn) {
             hctp_message_encode(&encodeCommands_current, params->message);
+
         }
 
         encodeCommands_base.motorState = encodeCommands_current.motorState;
