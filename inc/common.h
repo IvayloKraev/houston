@@ -13,7 +13,7 @@ typedef enum {
     houston_WARN
 } houston_RESULT;
 
-inline uint8_t houston_common_mapToUint8(unsigned int min, unsigned int max, unsigned int val) {
+inline uint8_t houston_mapToUint8(uint32_t min, uint32_t max, uint32_t val) {
     return min == max ? 0 : (uint8_t) (((val < min ? min : (val > max ? max : val)) - min) * 255 / (max - min));
 }
 

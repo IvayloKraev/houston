@@ -30,7 +30,7 @@ _Noreturn void houston_encodeCommands_receive(void *params) {
                             encodeCommands_base.motorState,
             .leftTurn = rawUserInput->leftTurn,
             .rightTurn = rawUserInput->rightTurn,
-            .speed = houston_common_mapToUint8(100, 4000, rawUserInput->speed)
+            .speed = houston_mapToUint8(100, 4000, rawUserInput->speed)
         };
 
         if(encodeCommands_current.motorState != encodeCommands_base.motorState ||
