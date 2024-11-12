@@ -1,6 +1,6 @@
 #include "wifiCtrl.h"
 
-_Noreturn void huston_wifiCtrl_init(void *paramsPtr) {
+_Noreturn void houston_wifiCtrl_init(void *paramsPtr) {
     wifiConfigHandler_t wifiConfig = (wifiConfigHandler_t) paramsPtr;
 
     if (cyw43_arch_init_with_country(CYW43_COUNTRY_BULGARIA)) {

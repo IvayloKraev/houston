@@ -45,8 +45,8 @@ int main(void)
     stdio_printf("Start loop logic\n");
 
     xTaskCreate(
-            huston_wifiCtrl_init,
-            "huston_wifiCtrl_init",
+            houston_wifiCtrl_init,
+            "houston_wifiCtrl_init",
             configMINIMAL_STACK_SIZE,
             &wifiConfig,
             tskCRUCIAL_PRIORITY,
