@@ -13,17 +13,16 @@
 #include "socket.h"
 
 static wifiConfig_t wifiConfig = {
-    .ssid = "Houston",
-    .password = "12345678"
+        .ssid = "Houston",
+        .password = "12345678"
 };
 
 static rawUserInput_t rawUserInput = {};
 static hctp_message_t houston_message = {};
 
 static TaskHandle_t houston_userInput_getState_handle;
-static UBaseType_t houston_userInput_getState_CoreAffinityMask = (1 << 1);
 
-static houston_encodeCommands_params_t  houston_encodeCommands_params;
+static houston_encodeCommands_params_t houston_encodeCommands_params;
 
 int main(void)
 {
@@ -35,7 +34,7 @@ int main(void)
 
     hctp_message_init(houston_message);
 
-    houston_encodeCommands_params = (houston_encodeCommands_params_t){
+    houston_encodeCommands_params = (houston_encodeCommands_params_t) {
             .newRawCommand = &rawUserInput,
             .message = houston_message
     };
@@ -51,7 +50,15 @@ int main(void)
             &wifiConfig,
             tskCRUCIAL_PRIORITY,
             NULL
-            );
+    );
+
+    xTaskCreate(houston_wifiCtrl_loop,
+                "houston_wifiCtrl_loop",
+                configMINIMAL_STACK_SIZE,
+                NULL,
+                tskNORMAL_PRIORITY,
+                NULL
+    );
 
     xTaskCreate(
             houston_userInput_getState,
@@ -60,7 +67,7 @@ int main(void)
             &rawUserInput,
             tskNORMAL_PRIORITY,
             &houston_userInput_getState_handle
-            );
+    );
 
     xTaskCreate(
             houston_encodeCommands_receive,

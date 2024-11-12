@@ -18,6 +18,8 @@ typedef struct {
 
 typedef wifiConfig_t *wifiConfigHandler_t;
 
-_Noreturn void houston_wifiCtrl_init(void *);
+void houston_wifiCtrl_init(void *);
+
+_Noreturn void houston_wifiCtrl_loop(void *);
 
 #endif
