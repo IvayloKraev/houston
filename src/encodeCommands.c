@@ -1,17 +1,8 @@
 #include "encodeCommands.h"
 
-#include <string.h>
-#include <pico/stdio.h>
-
-#define PRINT_UINT8_BITS(x) do {            \
-for (int _i = 7; _i >= 0; _i--) {      \
-stdio_printf("%d", ((x) >> _i) & 1);     \
-}                                       \
-stdio_printf("\n");                           \
-} while(0)
-
-_Noreturn void houston_encodeCommands_receive(void *paramsPtr) {
-    const houston_encodeCommands_params_t *params = (houston_encodeCommands_params_t *) paramsPtr;
+_Noreturn void houston_encodeCommands_receive(void *params) {
+    rawUserInput_handler_t rawUserInput = ((houston_encodeCommands_params_t *) params)->newRawCommand;
+    hctp_message_t message = ((houston_encodeCommands_params_t *) params)->message;
 
     hctp_message_readyToEncode_t encodeCommands_base = {
         .motorState = 0,
@@ -34,18 +25,18 @@ _Noreturn void houston_encodeCommands_receive(void *paramsPtr) {
         HOUSTON_STATUS_WAIT_RAW_USER_INPUT();
 
         encodeCommands_current = (hctp_message_readyToEncode_t){
-            .motorState =   (params->newRawCommand->stopMotors == 1) ? 0 :
-                            (params->newRawCommand->startMotors == 1) ? 1 :
+            .motorState =   (rawUserInput->stopMotors == 1) ? 0 :
+                            (rawUserInput->startMotors == 1) ? 1 :
                             encodeCommands_base.motorState,
-            .leftTurn = params->newRawCommand->leftTurn,
-            .rightTurn = params->newRawCommand->rightTurn,
-            .speed = houston_common_mapToUint8(100, 4000, params->newRawCommand->speed)
+            .leftTurn = rawUserInput->leftTurn,
+            .rightTurn = rawUserInput->rightTurn,
+            .speed = houston_common_mapToUint8(100, 4000, rawUserInput->speed)
         };
 
         if(encodeCommands_current.motorState != encodeCommands_base.motorState ||
             encodeCommands_current.leftTurn != encodeCommands_base.leftTurn ||
             encodeCommands_current.rightTurn != encodeCommands_base.rightTurn) {
-            hctp_message_encode(&encodeCommands_current, params->message);
+            hctp_message_encode(&encodeCommands_current, message);
             HOUSTON_STATUS_SET_ENCODED_COMMAND();
         }
 
