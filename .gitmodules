@@ -4,6 +4,6 @@
 [submodule "lib/pico-sdk"]
 	path = lib/pico-sdk
 	url = https://github.com/raspberrypi/pico-sdk.git
-[submodule "lib/hctp"]
-	path = lib/hctp
-	url = https://github.com/IvayloKraev/hctp.git
+[submodule "lib/hcst"]
+	path = lib/hcst
+	url = https://github.com/IvayloKraev/hcst.git
