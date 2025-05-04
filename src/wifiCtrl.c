@@ -26,8 +26,6 @@ _Noreturn void huston_wifiCtrl_init(void *paramsPtr) {
         vTaskDelete(NULL);
     }
 
-    HOUSTON_STATUS_SET_WIFI_DONE();
-
     while (true) {
         cyw43_arch_poll();
         cyw43_arch_wait_for_work_until(make_timeout_time_ms(1000));

@@ -1,8 +1,6 @@
 #include "socket.h"
 
 _Noreturn void houston_socket_pipeData(void *param) {
-    HOUSTON_STATUS_WAIT_WIFI_DONE();
-
     const ip_addr_t *houstonIpAddr = netif_ip4_addr(netif_default);
 
     ip_addr_t *curiosityIpAddr = (ip_addr_t *) malloc(sizeof(ip_addr_t));
@@ -24,7 +22,7 @@ _Noreturn void houston_socket_pipeData(void *param) {
     // Assigning value
     struct netbuf *houstonNetBuffer = netbuf_new();
 
-    err_t netBufStatus = netbuf_ref(houstonNetBuffer, param, HCTP_MESSAGE_SIZE_BYTES);
+    err_t netBufStatus = netbuf_ref(houstonNetBuffer, param, hcst_MESSAGE_SIZE_BYTES);
 
     if (netBufStatus != ERR_OK) {
         stdio_printf("netbuf_ref failed\n");
@@ -32,8 +30,6 @@ _Noreturn void houston_socket_pipeData(void *param) {
     }
 
     while (1) {
-        HOUSTON_STATUS_WAIT_ENCODED_COMMAND();
-
         err_t netconnSendStatus = netconn_send(houstonUdpConnection, houstonNetBuffer);
 
         if (netconnSendStatus != ERR_OK) {

@@ -18,7 +18,6 @@ add_executable(
         src/wifiCtrl.c
         src/userInput.c
         src/socket.c
-        src/status.c
 )
 
 include_directories(inc)

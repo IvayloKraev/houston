@@ -7,8 +7,6 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "status.h"
-
 #define CYW43_COUNTRY_BULGARIA CYW43_COUNTRY('B', 'G', 0)
 
 typedef struct {

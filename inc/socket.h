@@ -9,9 +9,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "hctp/messageModel.h"
-
-#include "status.h"
+#include "hcst/message.h"
 
 _Noreturn void houston_socket_pipeData();
 
