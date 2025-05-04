@@ -1,8 +1,6 @@
 #include "userInput.h"
 
-_Noreturn void houston_userInput_getState(void *paramsPtr) {
-    rawUserInput_handler_t rawUserInput = (rawUserInput_handler_t) paramsPtr;
-
+houston_RESULT houston_userInput_init() {
     gpio_init(START_MOTORS_PIN);
     gpio_set_dir(START_MOTORS_PIN, GPIO_IN);
 
@@ -18,14 +16,18 @@ _Noreturn void houston_userInput_getState(void *paramsPtr) {
     adc_init();
     adc_gpio_init(SPEED_CTRL_PIN);
 
+    return houston_OK;
+}
+
+_Noreturn void houston_userInput_getState() {
     while (1) {
-        rawUserInput->startMotors = gpio_get(START_MOTORS_PIN);
-        rawUserInput->stopMotors = gpio_get(STOP_MOTORS_PIN);
-        rawUserInput->leftTurn = gpio_get(LEFT_TURN_PIN);
-        rawUserInput->rightTurn = gpio_get(RIGHT_TURN_PIN);
+        gpio_get(START_MOTORS_PIN);
+        gpio_get(STOP_MOTORS_PIN);
+        gpio_get(LEFT_TURN_PIN);
+        gpio_get(RIGHT_TURN_PIN);
 
         adc_select_input(SPEED_CTRL_ADC);
-        rawUserInput->speed = adc_read();
+        adc_read();
 
         vTaskDelay(10);
     }

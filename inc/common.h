@@ -8,10 +8,10 @@
 #define tskCRUCIAL_PRIORITY ((configMAX_PRIORITIES - 1) | portPRIVILEGE_BIT)
 
 typedef enum {
-    huston_OK,
-    huston_ERR,
-    huston_WARN
-} huston_RESULT;
+    houston_OK = 1,
+    houston_WARN = 0,
+    houston_ERR = -1,
+} houston_RESULT;
 
 inline uint8_t houston_common_mapToUint8(unsigned int min, unsigned int max, unsigned int val) {
     return min == max ? 0 : (uint8_t) (((val < min ? min : (val > max ? max : val)) - min) * 255 / (max - min));

@@ -10,6 +10,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "common.h"
+
 #define START_MOTORS_PIN    2
 #define STOP_MOTORS_PIN     3
 #define LEFT_TURN_PIN       4
@@ -18,16 +20,8 @@
 #define SPEED_CTRL_ADC      2
 #define SPEED_CTRL_PIN      (SPEED_CTRL_ADC + 26)
 
-typedef struct {
-    bool startMotors;
-    bool stopMotors;
-    bool leftTurn;
-    bool rightTurn;
-    uint16_t speed;
-} rawUserInput_t;
+houston_RESULT houston_userInput_init();
 
-typedef rawUserInput_t *rawUserInput_handler_t;
-
-_Noreturn void houston_userInput_getState(void *);
+_Noreturn void houston_userInput_getState();
 
 #endif
