@@ -16,7 +16,7 @@ add_executable(
         houston
         main.c
         src/wifiCtrl.c
-        src/userInput.c
+        src/input.c
         src/socket.c
 )
 
