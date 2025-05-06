@@ -16,12 +16,20 @@ static wifiConfig_t wifiConfig = {
     .password = "12345678"
 };
 
+static QueueHandle_t inputQueue;
+
+static BaseType_t sendFromInput(hcst_message_t message) {
+    xQueueOverwrite(inputQueue, message);
+};
+
 int main(void) {
     stdio_usb_init();
 
     sleep_ms(5000);
 
     stdio_printf("Start init\n");
+
+    inputQueue = xQueueCreate(1, sizeof(uint8_t)*hcst_MESSAGE_SIZE_BYTES);
 
     houston_input_init();
 
@@ -40,7 +48,7 @@ int main(void) {
         houston_input_watch,
         "houston_userInput_getState",
         configMINIMAL_STACK_SIZE,
-        NULL,
+        &sendFromInput,
         tskNORMAL_PRIORITY,
         NULL
     );

@@ -8,6 +8,7 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
 
 #include "hcst/message.h"
 #include "hcst/state.h"
@@ -23,6 +24,6 @@
 
 houston_RESULT houston_input_init();
 
-_Noreturn void houston_input_watch();
+_Noreturn void houston_input_watch(void*);
 
 #endif

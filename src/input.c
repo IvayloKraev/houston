@@ -16,22 +16,44 @@ houston_RESULT houston_input_init() {
     return houston_OK;
 }
 
-_Noreturn void houston_input_watch() {
+_Noreturn void houston_input_watch(void *parameters) {
+    const sendMessageFn_t send = parameters;
+
     while (1) {
         hcst_message_t message;
         hcst_MESSAGE_INIT(message);
 
         const uint8_t motorsEnabled = gpio_get(ENABLE_MOTORS_PIN),
-                      leftSpin = gpio_get(LEFT_SPIN_PIN),
-                      rightSpin = gpio_get(RIGHT_SPIN_PIN);
+                leftSpin = gpio_get(LEFT_SPIN_PIN),
+                rightSpin = gpio_get(RIGHT_SPIN_PIN);
 
-        adc_select_input(SPEED_CTRL_ADC);
-        adc_read();
         adc_select_input(SPEED_ADC);
         const uint16_t speed = adc_read();
 
-        vTaskDelay(10);
+        hcst_powerMotor_set(message, hcst_FLM_BIT, motorsEnabled);
+        hcst_powerMotor_set(message, hcst_FRM_BIT, motorsEnabled);
+        hcst_powerMotor_set(message, hcst_RLM_BIT, motorsEnabled);
+        hcst_powerMotor_set(message, hcst_RRM_BIT, motorsEnabled);
+
+        hcst_directionMotor_set(message, hcst_FLM_BIT, 1);
+        hcst_directionMotor_set(message, hcst_FRM_BIT, 1);
+        hcst_directionMotor_set(message, hcst_RLM_BIT, 1);
+        hcst_directionMotor_set(message, hcst_RRM_BIT, 1);
+
+        if (leftSpin) {
+            hcst_directionMotor_set(message, hcst_FLM_BIT, 0);
+            hcst_directionMotor_set(message, hcst_RLM_BIT, 0);
+        } else if (rightSpin) {
+            hcst_directionMotor_set(message, hcst_FRM_BIT, 0);
+            hcst_directionMotor_set(message, hcst_RRM_BIT, 0);
+        }
+
+        hcst_speed_set(message, houston_common_mapToUint8(0, 4098, speed));
+
+        send(message);
+
+        vTaskDelay(pdMS_TO_TICKS(10));
 
         free(message);
     }
-};
+}
