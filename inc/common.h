@@ -1,11 +1,7 @@
 #ifndef HOUSTON_COMMON_H
 #define HOUSTON_COMMON_H
 
-#include "FreeRTOSConfig.h"
 #include <stdint.h>
-
-#define tskNORMAL_PRIORITY 1
-#define tskCRUCIAL_PRIORITY ((configMAX_PRIORITIES - 1) | portPRIVILEGE_BIT)
 
 typedef enum {
     houston_OK = 1,

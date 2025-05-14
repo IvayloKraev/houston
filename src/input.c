@@ -52,7 +52,7 @@ _Noreturn void houston_input_watch(void *paramsPtr) {
 
         send(message);
 
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(TICK_BETWEEN_LOOPS);
 
         free(message);
     }

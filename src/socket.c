@@ -1,38 +1,24 @@
 #include "socket.h"
 
-static wifiConfig_t wifiConfig = {
-    .ssid = "Houston",
-    .password = "12345678",
-    .auth = CYW43_AUTH_WPA2_AES_PSK
-};
-
 void houston_socket_init() {
 #if WIFI
-    if (cyw43_arch_init_with_country(CYW43_COUNTRY_BULGARIA)) {
+    if (cyw43_arch_init_with_country(CURRENT_COUNTRY)) {
         stdio_printf("failed to initialise wifi\n");
         vTaskDelete(NULL);
     }
 
     //TODO: Make Houston a access point (create a DHCP server)
-    cyw43_arch_enable_ap_mode(wifiConfig.ssid, wifiConfig.password, wifiConfig.auth);
+    cyw43_arch_enable_ap_mode(WIFI_SSID, WIFI_PASSWORD, WIFI_AUTH);
     stdio_printf("ap mode enabled\n");
-
-    const ip4_addr_t *ip = netif_ip4_addr(netif_default);
-    if (ip != NULL) {
-        printf("IP Address: %s\n", ip4addr_ntoa(ip));
-    } else {
-        printf("Failed to get IP address\n");
-    }
-
-    vTaskDelete(NULL);
 #elif BT
 
 #elif RADIO
 
 #endif
+    vTaskDelete(NULL);
 }
 
-_Noreturn void houston_socket_pipeData(void *param) {
+_Noreturn void houston_socket_send(void *param) {
     const ip_addr_t *houstonIpAddr = netif_ip4_addr(netif_default);
 
     ip_addr_t *curiosityIpAddr = (ip_addr_t *) malloc(sizeof(ip_addr_t));

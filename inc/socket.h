@@ -11,17 +11,7 @@
 
 #include "hcst/message.h"
 
-#define WIFI 1
-
-#define CYW43_COUNTRY_BULGARIA CYW43_COUNTRY('B', 'G', 0)
-
-typedef struct {
-    const char *ssid;
-    const char *password;
-    uint32_t auth;
-} wifiConfig_t;
-
-typedef wifiConfig_t *wifiConfigHandler_t;
+#include "config.h"
 
 _Noreturn void houston_socket_init();
 _Noreturn void houston_socket_send(void*);
