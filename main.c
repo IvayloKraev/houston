@@ -5,21 +5,14 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
-
-#include "wifiCtrl.h"
 #include "input.h"
 #include "common.h"
 #include "socket.h"
 
-static wifiConfig_t wifiConfig = {
-    .ssid = "Houston",
-    .password = "12345678"
-};
-
 static QueueHandle_t inputQueue;
 
 static BaseType_t sendFromInput(hcst_message_t message) {
-    xQueueOverwrite(inputQueue, message);
+    return xQueueOverwrite(inputQueue, message);
 };
 
 int main(void) {
@@ -36,10 +29,10 @@ int main(void) {
     stdio_printf("Start loop logic\n");
 
     xTaskCreate(
-        huston_wifiCtrl_init,
+        houston_socket_init,
         "huston_wifiCtrl_init",
         configMINIMAL_STACK_SIZE,
-        &wifiConfig,
+        NULL,
         tskCRUCIAL_PRIORITY,
         NULL
     );
@@ -54,7 +47,7 @@ int main(void) {
     );
 
     xTaskCreate(
-        houston_socket_pipeData,
+        houston_socket_send,
         "houston_socket_pipeData",
         configMINIMAL_STACK_SIZE,
         NULL,

@@ -16,8 +16,8 @@ houston_RESULT houston_input_init() {
     return houston_OK;
 }
 
-_Noreturn void houston_input_watch(void *parameters) {
-    const sendMessageFn_t send = parameters;
+_Noreturn void houston_input_watch(void *paramsPtr) {
+    const sendMessageFn_t send = paramsPtr;
 
     while (1) {
         hcst_message_t message;
