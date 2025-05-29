@@ -6,10 +6,6 @@
 #include "hardware/gpio.h"
 #include "hardware/adc.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-
 #include "hcst/message.h"
 #include "hcst/state.h"
 
