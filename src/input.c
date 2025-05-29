@@ -1,8 +1,6 @@
 #include "input.h"
 
 hcst_ERROR_t houston_input_init() {
-    gpio_init(ENABLE_MOTORS_PIN);
-    gpio_set_dir(ENABLE_MOTORS_PIN, GPIO_IN);
 
     gpio_init(LEFT_SPIN_PIN);
     gpio_set_dir(LEFT_SPIN_PIN, GPIO_IN);
