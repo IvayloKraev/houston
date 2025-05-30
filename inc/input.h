@@ -9,7 +9,6 @@
 #include "hcst/message.h"
 #include "hcst/state.h"
 
-#include "config.h"
 #include "common.h"
 
 #define ENABLE_MOTORS_PIN   2
