@@ -20,6 +20,6 @@
 
 hcst_ERROR_t houston_input_init();
 
-_Noreturn void houston_input_watch(void*);
+hcst_ERROR_t houston_input_tick(hcst_message_t);
 
 #endif
