@@ -18,7 +18,7 @@
 #define SPEED_ADC           2
 #define SPEED_PIN           (SPEED_ADC + 26)
 
-houston_RESULT houston_input_init();
+hcst_ERROR_t houston_input_init();
 
 _Noreturn void houston_input_watch(void*);
 
