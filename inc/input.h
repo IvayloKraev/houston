@@ -11,9 +11,18 @@
 
 #include "common.h"
 
-#define ENABLE_MOTORS_PIN   2
-#define LEFT_SPIN_PIN       3
-#define RIGHT_SPIN_PIN      4
+#define DRAG_ENABLE_PIN     22
+
+#define FORWARD_PIN         21
+#define BACKWARD_PIN        20
+#define LEFT_SPIN_PIN       19
+#define RIGHT_SPIN_PIN      18
+
+#define JOYSTICK_X_ADC      0
+#define JOYSTICK_X_PIN      (JOYSTICK_X_ADC + 26)
+
+#define JOYSTICK_Y_ADC      1
+#define JOYSTICK_Y_PIN      (JOYSTICK_Y_ADC + 26)
 
 #define SPEED_ADC           2
 #define SPEED_PIN           (SPEED_ADC + 26)

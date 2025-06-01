@@ -1,6 +1,14 @@
 #include "input.h"
 
-hcst_ERROR_t houston_input_init() {
+hcst_error_t houston_input_init() {
+    gpio_init(DRAG_ENABLE_PIN);
+    gpio_set_dir(DRAG_ENABLE_PIN, GPIO_IN);
+
+    gpio_init(FORWARD_PIN);
+    gpio_set_dir(FORWARD_PIN, GPIO_IN);
+
+    gpio_init(BACKWARD_PIN);
+    gpio_set_dir(BACKWARD_PIN, GPIO_IN);
 
     gpio_init(LEFT_SPIN_PIN);
     gpio_set_dir(LEFT_SPIN_PIN, GPIO_IN);
