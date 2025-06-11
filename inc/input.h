@@ -9,14 +9,14 @@
 #include "hcst/message.h"
 #include "hcst/state.h"
 
-#include "common.h"
-
-#define DRAG_ENABLE_PIN     22
+#define DRAG_ENABLE_PIN     17
 
 #define FORWARD_PIN         21
 #define BACKWARD_PIN        20
 #define LEFT_SPIN_PIN       19
 #define RIGHT_SPIN_PIN      18
+
+#define JOYSTICK_BTN_PIN    22
 
 #define JOYSTICK_X_ADC      0
 #define JOYSTICK_X_PIN      (JOYSTICK_X_ADC + 26)
