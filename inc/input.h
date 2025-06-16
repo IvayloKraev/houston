@@ -6,8 +6,7 @@
 #include "hardware/gpio.h"
 #include "hardware/adc.h"
 
-#include "hcst/message.h"
-#include "hcst/state.h"
+#include "hcst/error.h"
 
 #define DRAG_ENABLE_PIN     17
 
@@ -39,6 +38,8 @@ typedef struct {
     uint16_t speed;
 } inputData_t;
 
-hcst_ERROR_t houston_input_tick(hcst_message_t);
+hcst_error_t houston_input_init();
+
+hcst_error_t houston_input_read(inputData_t*);
 
 #endif
