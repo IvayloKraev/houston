@@ -16,10 +16,15 @@ hcst_error_t houston_input_init() {
     gpio_init(RIGHT_SPIN_PIN);
     gpio_set_dir(RIGHT_SPIN_PIN, GPIO_IN);
 
+    gpio_init(JOYSTICK_BTN_PIN);
+    gpio_set_dir(JOYSTICK_BTN_PIN, GPIO_IN);
+
     adc_init();
     adc_gpio_init(SPEED_PIN);
+    adc_gpio_init(JOYSTICK_X_PIN);
+    adc_gpio_init(JOYSTICK_Y_PIN);
 
-    return houston_OK;
+    return hcst_error_none;
 }
 
 _Noreturn void houston_input_watch(void *paramsPtr) {
