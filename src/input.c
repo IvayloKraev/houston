@@ -27,44 +27,26 @@ hcst_error_t houston_input_init() {
     return hcst_error_none;
 }
 
-_Noreturn void houston_input_watch(void *paramsPtr) {
-    const sendMessageFn_t send = paramsPtr;
+hcst_error_t houston_input_read(inputData_t* inputData) {
+    if (inputData == NULL)
+        return hcst_error_nullPtr;
 
-    while (1) {
-        hcst_message_t message;
-        hcst_MESSAGE_INIT(message);
+    inputData->dragEnable = gpio_get(DRAG_ENABLE_PIN);
+    inputData->forward = gpio_get(FORWARD_PIN);
+    inputData->backward = gpio_get(BACKWARD_PIN);
+    inputData->leftSpin = gpio_get(LEFT_SPIN_PIN);
+    inputData->rightSpin = gpio_get(RIGHT_SPIN_PIN);
 
-        const uint8_t motorsEnabled = gpio_get(ENABLE_MOTORS_PIN),
-                leftSpin = gpio_get(LEFT_SPIN_PIN),
-                rightSpin = gpio_get(RIGHT_SPIN_PIN);
+    inputData->joystickBtn = gpio_get(JOYSTICK_BTN_PIN);
 
-        adc_select_input(SPEED_ADC);
-        const uint16_t speed = adc_read();
+    adc_select_input(SPEED_ADC);
+    inputData->speed = adc_read();
 
-        hcst_powerMotor_set(message, hcst_FLM_BIT, motorsEnabled);
-        hcst_powerMotor_set(message, hcst_FRM_BIT, motorsEnabled);
-        hcst_powerMotor_set(message, hcst_RLM_BIT, motorsEnabled);
-        hcst_powerMotor_set(message, hcst_RRM_BIT, motorsEnabled);
+    adc_select_input(JOYSTICK_X_ADC);
+    inputData->joystickX = adc_read();
 
-        hcst_directionMotor_set(message, hcst_FLM_BIT, 1);
-        hcst_directionMotor_set(message, hcst_FRM_BIT, 1);
-        hcst_directionMotor_set(message, hcst_RLM_BIT, 1);
-        hcst_directionMotor_set(message, hcst_RRM_BIT, 1);
+    adc_select_input(JOYSTICK_Y_ADC);
+    inputData->joystickY = adc_read();
 
-        if (leftSpin) {
-            hcst_directionMotor_set(message, hcst_FLM_BIT, 0);
-            hcst_directionMotor_set(message, hcst_RLM_BIT, 0);
-        } else if (rightSpin) {
-            hcst_directionMotor_set(message, hcst_FRM_BIT, 0);
-            hcst_directionMotor_set(message, hcst_RRM_BIT, 0);
-        }
-
-        hcst_speed_set(message, houston_common_mapToUint8(0, 4098, speed));
-
-        send(message);
-
-        vTaskDelay(TICK_BETWEEN_LOOPS);
-
-        free(message);
-    }
+    return hcst_error_none;
 }
