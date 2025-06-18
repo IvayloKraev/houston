@@ -2,22 +2,11 @@
 
 hcst_error_t houston_input_init() {
     gpio_init(DRAG_ENABLE_PIN);
-    gpio_set_dir(DRAG_ENABLE_PIN, GPIO_IN);
-
     gpio_init(FORWARD_PIN);
-    gpio_set_dir(FORWARD_PIN, GPIO_IN);
-
     gpio_init(BACKWARD_PIN);
-    gpio_set_dir(BACKWARD_PIN, GPIO_IN);
-
     gpio_init(LEFT_SPIN_PIN);
-    gpio_set_dir(LEFT_SPIN_PIN, GPIO_IN);
-
     gpio_init(RIGHT_SPIN_PIN);
-    gpio_set_dir(RIGHT_SPIN_PIN, GPIO_IN);
-
     gpio_init(JOYSTICK_BTN_PIN);
-    gpio_set_dir(JOYSTICK_BTN_PIN, GPIO_IN);
 
     adc_init();
     adc_gpio_init(SPEED_PIN);
