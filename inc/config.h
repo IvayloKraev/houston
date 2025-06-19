@@ -17,5 +17,16 @@
 #define WIFI_PASSWORD                   "12345678"
 #define WIFI_AUTH                       CYW43_AUTH_WPA2_AES_PSK
 
+// Pins
+#define DRAG_ENABLE_PIN     17
+#define RIGHT_SPIN_PIN      18
+#define LEFT_SPIN_PIN       19
+#define BACKWARD_PIN        20
+#define FORWARD_PIN         21
+#define JOYSTICK_BTN_PIN    22
+#define JOYSTICK_X_PIN      26
+#define JOYSTICK_Y_PIN      27
+#define SPEED_PIN           28
+
 
 #endif
