@@ -28,14 +28,14 @@ hcst_error_t houston_input_read(inputData_t* inputData) {
 
     inputData->joystickBtn = gpio_get(JOYSTICK_BTN_PIN);
 
-    adc_select_input(SPEED_ADC);
-    inputData->speed = adc_read();
-
-    adc_select_input(JOYSTICK_X_ADC);
+    adc_select_input(JOYSTICK_X_PIN - 26);
     inputData->joystickX = adc_read();
 
-    adc_select_input(JOYSTICK_Y_ADC);
+    adc_select_input(JOYSTICK_Y_PIN - 26);
     inputData->joystickY = adc_read();
+
+    adc_select_input(SPEED_PIN - 26);
+    inputData->speed = adc_read();
 
     return hcst_error_none;
 }
